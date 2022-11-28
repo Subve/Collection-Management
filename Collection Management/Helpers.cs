@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Collection_Management
 {
-    internal class Helpers
+    public class Helpers
     {
     }
     public enum ItemType

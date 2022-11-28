@@ -3,7 +3,17 @@
 namespace Collection_Management
 {
     internal class Program
-    {
+    {   
+        //Przywitanie
+        //Wybor operacji
+        //A1 Pobranie danych do dodania
+        //B1 Pobranie danych do update-u
+        //C1 Pobranie danych do usuniecia
+        //D1 Pokazanie przedmiotu
+        //E1 Pokazanie wszystkich przedmiotow z kategorii
+        //A2 Dodanie do listy
+        //B2 pobranie danych do temp, usuniecie i dodanie zmienionego
+        //C2 Usuniecie z listy
         public const string PATH_WAY = @"C:\Users\milos\Documents\Collection_Manager\ImportFile.xlsx";
         static void Main(string[] args)
         {
@@ -13,6 +23,7 @@ namespace Collection_Management
             Console.WriteLine("2. Update Item");
             Console.WriteLine("3. Delete Item");
             Console.WriteLine("4. Show Item");
+            Console.WriteLine("5. Show All Items from category");
 
             string? operation=Console.ReadLine();
             int chosenOperation = 0;
@@ -53,6 +64,7 @@ namespace Collection_Management
             else
             {   //The wrong option
                 Console.WriteLine("Choose the right operation");
+               
             }
 
         }
