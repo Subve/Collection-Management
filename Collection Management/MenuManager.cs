@@ -10,39 +10,25 @@ namespace Collection_Management
     {
         List<Menu> menuList = new();
         public MenuManager() { }
-        public void AddNewAction(int id,string name,string description, int state)
+        public void AddNewAction(int id,string description, int state)
         {
-            Menu menuAction=new Menu() {Id=id,Name=name,Description=description, State=state};
+            Menu menuAction=new Menu() {Id=id,Description=description, State=state};
             menuList.Add(menuAction);
         }
-        public void ShowMenuAction(int state) 
+        public void ShowMenuActionByState(int state) 
         {
             //Show actions of state
-            switch (state)
+            foreach (Menu menu in menuList)
             {
-                case 1:
-                    {
-                        foreach (Menu menu in menuList)
-                        {
-                           Console.WriteLine(menu.Description);
-
-                        }
-                        break;
-                    }
-                case 2:
-                    {
-                        foreach (Menu menu in menuList)
-                        {
-                            Console.WriteLine(menu.Description);
-
-                        }
-                        break;
-                    }
-                default:
-                    break;
+                if(menu.State==state)
+                { 
+                    Console.WriteLine(menu.Description);
+                }
+                else
+                { 
+                    continue; 
+                }
             }
         }
-
-        
     }
 }
