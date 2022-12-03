@@ -30,5 +30,12 @@ namespace Collection_Management
                 }
             }
         }
+        public void CloseTheApp( ref char keyToStop)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Press 'q' to quit");
+            Console.WriteLine("Press 'c' to continue");
+            keyToStop = char.Parse(Console.ReadLine());
+        }
     }
 }

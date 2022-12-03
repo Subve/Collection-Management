@@ -13,4 +13,10 @@ namespace Collection_Management
         public string? Name { get; set; }
         public string? Type { get; set; }
     }
+    public enum EnumType
+    {
+        Figures=1,
+        Coins,
+        Teddies
+    }
 }

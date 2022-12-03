@@ -12,6 +12,7 @@ namespace Collection_Management
         public void AddToList(int id,string name, string type)
         {
             //Dodaj waruenk sprawdzajacy czy nie istnieje o takim id
+
             Item item= new Item() { Id=id,Name=name,Type=type};
             itemList.Add(item);
             
