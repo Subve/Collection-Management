@@ -20,11 +20,12 @@ namespace Collection_Management
         static void Main(string[] args)
         {   Console.WriteLine("Welcome to Your Collection Manager");
             char stopKey = 'c';
+            ItemManager itemManager = new();
+            MenuManager menuManager = new();
+            InitializeMenu(menuManager);
             while (stopKey!='q')
             {   
-                ItemManager itemManager = new();
-                MenuManager menuManager = new();
-                InitializeMenu(menuManager);
+                
 
                 menuManager.ShowMenuActionByState(0);
 
@@ -40,18 +41,51 @@ namespace Collection_Management
                 string? categoryInput = Console.ReadLine();
                 //Int32.TryParse(categoryInput, out choosenCategory);
 
-                if (chosenOperation == 1)
+                switch (chosenOperation)
                 {
-                    menuManager.ShowMenuActionByState(2);
-                    int itemId = Convert.ToInt32(Console.ReadLine());
+                    case 1:
+                        {
+                            menuManager.ShowMenuActionByState(2);
+                            int itemId = Convert.ToInt32(Console.ReadLine());
 
-                    Enum.TryParse(categoryInput, out ItemType chosenCategory);
-                    string itemCategory = chosenCategory.ToString();
-                    menuManager.ShowMenuActionByState(3);
-                    string? itemName = Console.ReadLine();
-                    itemManager.AddToList(itemId, itemName, itemCategory);
+                            Enum.TryParse(categoryInput, out ItemType chosenCategory);
+                            string itemCategory = chosenCategory.ToString();
+                            menuManager.ShowMenuActionByState(3);
+                            string? itemName = Console.ReadLine();
+                            itemManager.AddToList(itemId, itemName, itemCategory);
+                            break;
+                        }
+                    case 2:
+                        {
+                            //Update
+                            break;
+                        }
+                    case 3:
+                        {
+                            //Delete
+                            break;
+                        }
+                    case 4:
+                        {
+                            //Show item with id
+                            menuManager.ShowMenuActionByState(6);
+                            int itemId = Convert.ToInt32(Console.ReadLine());
+                            List<Item> showedItem = new();
+                            showedItem=itemManager.ShowOneItem(itemId);
+                            foreach (var item in showedItem)
+                            {
+                                Console.WriteLine($"Item ID: {item.Id} Item Name: {item.Name} Item Type: {item.Type}");
+                            }
+                            break;
+                        }   
+                    case 5:
+                        {
+                            //Show all from category
+                            break;
+                        }
 
                 }
+                
                 //Quit the app if 'q'
                 menuManager.CloseTheApp(ref stopKey);
                 
