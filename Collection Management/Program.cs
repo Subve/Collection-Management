@@ -36,24 +36,42 @@ namespace Collection_Management
 
 
                 Console.WriteLine($"You have choosen option number: {chosenOperation}");
-                menuManager.ShowMenuActionByState(1);
-                //int choosenCategory;
-                string? categoryInput = Console.ReadLine();
+                
                 //Int32.TryParse(categoryInput, out choosenCategory);
 
                 switch (chosenOperation)
                 {
                     case 1:
                         {
+                            menuManager.ShowMenuActionByState(1);
+                            //int choosenCategory;
+                            string? categoryInput = Console.ReadLine();
                             menuManager.ShowMenuActionByState(2);
                             int itemId = Convert.ToInt32(Console.ReadLine());
 
                             Enum.TryParse(categoryInput, out ItemType chosenCategory);
-                            string itemCategory = chosenCategory.ToString();
-                            menuManager.ShowMenuActionByState(3);
-                            string? itemName = Console.ReadLine();
-                            itemManager.AddToList(itemId, itemName, itemCategory);
-                            break;
+                            bool idCheck=itemManager.CheckIfIdNotExist(itemId);
+                            if(idCheck) 
+                            {
+                                string itemCategory = chosenCategory.ToString();
+                                menuManager.ShowMenuActionByState(3);
+                                string? itemName = Console.ReadLine();
+                                if (itemName != null)
+                                {
+                                    itemManager.AddToList(itemId, itemName, itemCategory);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You didnt give a name!");
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("ID {itemId} is taken. Please use an unused one.");
+                                break;
+                            }
+                            
                         }
                     case 2:
                         {
@@ -63,6 +81,10 @@ namespace Collection_Management
                     case 3:
                         {
                             //Delete
+                            menuManager.ShowMenuActionByState(5);
+                            int itemId = Convert.ToInt32(Console.ReadLine());
+                            itemManager.RemoveFromList(itemId);
+                            Console.WriteLine($"Deleted item with ID: {itemId}");
                             break;
                         }
                     case 4:
@@ -81,6 +103,17 @@ namespace Collection_Management
                     case 5:
                         {
                             //Show all from category
+                            menuManager.ShowMenuActionByState(1);
+                            menuManager.ShowMenuActionByState(7);
+                            menuManager.ShowMenuActionByState(8);
+                            string? categoryInput = Console.ReadLine();
+                            Enum.TryParse(categoryInput, out ItemType chosenCategory);
+                            string categoryToDisplay=chosenCategory.ToString();
+                            List<Item> listToDisplay=itemManager.GetList(categoryToDisplay);
+                            foreach (var item in listToDisplay)
+                            {
+                                Console.WriteLine($"Item ID: {item.Id} Item Name: {item.Name} Item Type: {item.Type}");
+                            }
                             break;
                         }
 
@@ -118,9 +151,10 @@ namespace Collection_Management
 
             menuAction.AddNewAction(15, "Write the id item you want to look into", 6);
 
-            menuAction.AddNewAction(16, "You are about to see all items from category", 7);
+            menuAction.AddNewAction(16, "4. All", 7);
+            menuAction.AddNewAction(17, "You are about to see all items from the category", 8);
 
-            
+
 
             return menuAction;
         }

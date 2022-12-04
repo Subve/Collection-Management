@@ -17,9 +17,24 @@ namespace Collection_Management
             itemList.Add(item);
             
         }
+        public bool CheckIfIdNotExist(int id)
+        {
+            var idDoesNotExist = itemList.Find(x => x.Id.Equals(id));
+            if (idDoesNotExist is null)
+            {
+                return true;
+            }
+            return false;
+        }
         public void RemoveFromList(int id) 
-        { 
+        {
             //Usuwanie z listy jesli istnieje
+            var itemToRemove=itemList.Find(x => x.Id.Equals(id));
+            if (itemToRemove != null)
+            {
+                itemList.Remove(itemToRemove);
+            }
+            
         }
         public List<Item> GetList(string type)
         {

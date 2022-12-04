@@ -13,6 +13,7 @@ namespace Collection_Management
     {
         Figure=1,
         Coin,
-        Teddy
+        Teddy,
+        All
     }
 }
