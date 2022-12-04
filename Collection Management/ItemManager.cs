@@ -65,5 +65,37 @@ namespace Collection_Management
             }
             return result;
         }
+        public string OutDatedName(int id)
+        {
+            string name="NOT FOUND";
+            foreach (Item item in itemList)
+            {
+                if (item.Id == id)
+                {   if (item.Name is not null)
+                    { 
+                        name = item.Name;
+                    }
+                }
+                
+            }
+            return name;
+        }
+        public string OutDatedType(int id)
+        {
+            string type = "NOT FOUND";
+            foreach (Item item in itemList)
+            {
+                if (item.Id == id)
+                {
+                    if(item.Type is not null)
+                    {
+                        type = item.Type;
+                    }
+                    
+                }
+
+            }
+            return type;
+        }
     }
 }

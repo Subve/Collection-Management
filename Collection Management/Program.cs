@@ -68,7 +68,7 @@ namespace Collection_Management
                             }
                             else
                             {
-                                Console.WriteLine("ID {itemId} is taken. Please use an unused one.");
+                                Console.WriteLine($"ID {itemId} is taken. Please use an unused one.");
                                 break;
                             }
                             
@@ -76,6 +76,40 @@ namespace Collection_Management
                     case 2:
                         {
                             //Update
+                            menuManager.ShowMenuActionByState(4);
+                            int itemId = Convert.ToInt32(Console.ReadLine());
+                            string tmpName=itemManager.OutDatedName(itemId);
+                            string tmp_type=itemManager.OutDatedType(itemId);
+                            itemManager.RemoveFromList(itemId);
+                            menuManager.ShowMenuActionByState(1);
+                            //int choosenCategory;
+                            string? categoryInput = Console.ReadLine();
+                            menuManager.ShowMenuActionByState(2);
+                            itemId = Convert.ToInt32(Console.ReadLine());
+
+                            Enum.TryParse(categoryInput, out ItemType chosenCategory);
+                            bool idCheck = itemManager.CheckIfIdNotExist(itemId);
+                            if (idCheck)
+                            {
+                                string itemCategory = chosenCategory.ToString();
+                                menuManager.ShowMenuActionByState(3);
+                                string? itemName = Console.ReadLine();
+                                if (itemName != null)
+                                {
+                                    itemManager.AddToList(itemId, itemName, itemCategory);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("You didnt give a name!");
+                                }
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"ID {itemId} is taken. Please use an unused one.");
+                                break;
+                            }
+
                             break;
                         }
                     case 3:
