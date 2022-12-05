@@ -83,36 +83,22 @@ namespace Collection_Management
                             Enum.TryParse(categoryInput, out ItemType chosenCategory);
                             string itemCategory = chosenCategory.ToString();
                             bool idCheck = itemManager.CheckIfIdNotExist(itemId);
-                            if (itemId!=previousItemId)
+                            
+                            while (!idCheck&& itemId != previousItemId)
                             {
-                                while (!idCheck)
-                                {
-                                    Console.WriteLine("That ID exist. Enter another one.");
-                                    itemId = Convert.ToInt32(Console.ReadLine());
-                                    idCheck = itemManager.CheckIfIdNotExist(itemId);
-                                }
-                                menuManager.ShowMenuActionByState(3);
-                                string? itemName = Console.ReadLine();
-                                while (itemName is null)
-                                {
-                                    Console.WriteLine("You didnt give a proper name! Try again.");
-                                    itemName = Console.ReadLine();
-                                }
-                                itemManager.RemoveFromList(previousItemId);
-                                itemManager.AddToList(itemId, itemName, itemCategory);
+                                Console.WriteLine("That ID exist. Enter another one.");
+                                itemId = Convert.ToInt32(Console.ReadLine());
+                                idCheck = itemManager.CheckIfIdNotExist(itemId);
                             }
-                            else
+                            menuManager.ShowMenuActionByState(3);
+                            string? itemName = Console.ReadLine();
+                            while (itemName is null)
                             {
-                                menuManager.ShowMenuActionByState(3);
-                                string? itemName = Console.ReadLine();
-                                while (itemName is null)
-                                {
-                                    Console.WriteLine("You didnt give a proper name! Try again.");
-                                    itemName = Console.ReadLine();
-                                }
-                                itemManager.RemoveFromList(previousItemId);
-                                itemManager.AddToList(itemId, itemName, itemCategory);
+                                Console.WriteLine("You didnt give a proper name! Try again.");
+                                itemName = Console.ReadLine();
                             }
+                            itemManager.RemoveFromList(previousItemId);
+                            itemManager.AddToList(itemId, itemName, itemCategory);
                             break;
                         }
                     case 3:
