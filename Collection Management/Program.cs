@@ -44,34 +44,28 @@ namespace Collection_Management
                     case 1:
                         {
                             menuManager.ShowMenuActionByState(1);
-                            //int choosenCategory;
                             string? categoryInput = Console.ReadLine();
                             menuManager.ShowMenuActionByState(2);
                             int itemId = Convert.ToInt32(Console.ReadLine());
 
                             Enum.TryParse(categoryInput, out ItemType chosenCategory);
                             bool idCheck=itemManager.CheckIfIdNotExist(itemId);
-                            if(idCheck) 
-                            {
-                                string itemCategory = chosenCategory.ToString();
-                                menuManager.ShowMenuActionByState(3);
-                                string? itemName = Console.ReadLine();
-                                if (itemName != null)
-                                {
-                                    itemManager.AddToList(itemId, itemName, itemCategory);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("You didnt give a name!");
-                                }
-                                break;
-                            }
-                            else
+                            while (!idCheck)
                             {
                                 Console.WriteLine($"ID {itemId} is taken. Please use an unused one.");
-                                break;
+                                itemId = Convert.ToInt32(Console.ReadLine());
                             }
+                            string itemCategory = chosenCategory.ToString();
+                            menuManager.ShowMenuActionByState(3);
+                            string? itemName = Console.ReadLine();
+                            while (itemName is null)
+                            {
+                                Console.WriteLine("You didnt give a proper name! Try again.");
+                                itemName = Console.ReadLine();
+                            }
+                            itemManager.AddToList(itemId, itemName, itemCategory);
                             
+                            break;
                         }
                     case 2:
                         {
@@ -88,47 +82,37 @@ namespace Collection_Management
 
                             Enum.TryParse(categoryInput, out ItemType chosenCategory);
                             string itemCategory = chosenCategory.ToString();
+                            bool idCheck = itemManager.CheckIfIdNotExist(itemId);
                             if (itemId!=previousItemId)
                             {
-                                bool idCheck = itemManager.CheckIfIdNotExist(itemId);
-                                if (idCheck)
+                                while (!idCheck)
                                 {
-                                    
-                                    menuManager.ShowMenuActionByState(3);
-                                    string? itemName = Console.ReadLine();
-                                    if (itemName != null)
-                                    {
-                                        itemManager.RemoveFromList(previousItemId);
-                                        itemManager.AddToList(itemId, itemName, itemCategory);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("You didnt give a name!");
-                                    }
-
+                                    Console.WriteLine("That ID exist. Enter another one.");
+                                    itemId = Convert.ToInt32(Console.ReadLine());
+                                    idCheck = itemManager.CheckIfIdNotExist(itemId);
                                 }
-                                else
+                                menuManager.ShowMenuActionByState(3);
+                                string? itemName = Console.ReadLine();
+                                while (itemName is null)
                                 {
-                                    Console.WriteLine($"ID {itemId} is taken. Please use an unused one.");
-                                    break;
+                                    Console.WriteLine("You didnt give a proper name! Try again.");
+                                    itemName = Console.ReadLine();
                                 }
+                                itemManager.RemoveFromList(previousItemId);
+                                itemManager.AddToList(itemId, itemName, itemCategory);
                             }
                             else
                             {
-                                
                                 menuManager.ShowMenuActionByState(3);
                                 string? itemName = Console.ReadLine();
-                                if (itemName != null)
+                                while (itemName is null)
                                 {
-                                    itemManager.RemoveFromList(previousItemId);
-                                    itemManager.AddToList(itemId, itemName, itemCategory);
+                                    Console.WriteLine("You didnt give a proper name! Try again.");
+                                    itemName = Console.ReadLine();
                                 }
-                                else
-                                {
-                                    Console.WriteLine("You didnt give a name!");
-                                }
+                                itemManager.RemoveFromList(previousItemId);
+                                itemManager.AddToList(itemId, itemName, itemCategory);
                             }
-
                             break;
                         }
                     case 3:
