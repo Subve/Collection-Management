@@ -77,37 +77,56 @@ namespace Collection_Management
                         {
                             //Update
                             menuManager.ShowMenuActionByState(4);
-                            int itemId = Convert.ToInt32(Console.ReadLine());
-                            string tmpName=itemManager.OutDatedName(itemId);
-                            string tmp_type=itemManager.OutDatedType(itemId);
-                            itemManager.RemoveFromList(itemId);
+                            int previousItemId = Convert.ToInt32(Console.ReadLine());
+                            string tmpName=itemManager.OutDatedName(previousItemId);
+                            string tmp_type=itemManager.OutDatedType(previousItemId);
                             menuManager.ShowMenuActionByState(1);
-                            //int choosenCategory;
+                            
                             string? categoryInput = Console.ReadLine();
                             menuManager.ShowMenuActionByState(2);
-                            itemId = Convert.ToInt32(Console.ReadLine());
+                            int itemId = Convert.ToInt32(Console.ReadLine());
 
                             Enum.TryParse(categoryInput, out ItemType chosenCategory);
-                            bool idCheck = itemManager.CheckIfIdNotExist(itemId);
-                            if (idCheck)
+                            string itemCategory = chosenCategory.ToString();
+                            if (itemId!=previousItemId)
                             {
-                                string itemCategory = chosenCategory.ToString();
+                                bool idCheck = itemManager.CheckIfIdNotExist(itemId);
+                                if (idCheck)
+                                {
+                                    
+                                    menuManager.ShowMenuActionByState(3);
+                                    string? itemName = Console.ReadLine();
+                                    if (itemName != null)
+                                    {
+                                        itemManager.RemoveFromList(previousItemId);
+                                        itemManager.AddToList(itemId, itemName, itemCategory);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("You didnt give a name!");
+                                    }
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"ID {itemId} is taken. Please use an unused one.");
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                
                                 menuManager.ShowMenuActionByState(3);
                                 string? itemName = Console.ReadLine();
                                 if (itemName != null)
                                 {
+                                    itemManager.RemoveFromList(previousItemId);
                                     itemManager.AddToList(itemId, itemName, itemCategory);
                                 }
                                 else
                                 {
                                     Console.WriteLine("You didnt give a name!");
                                 }
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine($"ID {itemId} is taken. Please use an unused one.");
-                                break;
                             }
 
                             break;
