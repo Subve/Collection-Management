@@ -15,7 +15,6 @@ namespace Collection_Management
 
             Item item= new Item() { Id=id,Name=name,Type=type};
             itemList.Add(item);
-            
         }
         public bool CheckIfIdNotExist(int id)
         {
@@ -34,22 +33,16 @@ namespace Collection_Management
             {
                 itemList.Remove(itemToRemove);
             }
-            
         }
         public List<Item> GetList(string type)
         {
             List<Item> result = new();
             foreach(Item item in itemList)
             {
-                if (item.Type==type)
+                if (item.Type==type||type=="All")
                 {
                     result.Add(item);
                 }
-                else if(type=="All")
-                {
-                    result.Add(item);
-                }
-
             }
             return result;
         }
@@ -70,11 +63,9 @@ namespace Collection_Management
             string name="NOT FOUND";
             foreach (Item item in itemList)
             {
-                if (item.Id == id)
-                {   if (item.Name is not null)
-                    { 
-                        name = item.Name;
-                    }
+                if (item.Id == id&& item.Name is not null)
+                {
+                    name = item.Name;
                 }
                 
             }
@@ -85,13 +76,10 @@ namespace Collection_Management
             string type = "NOT FOUND";
             foreach (Item item in itemList)
             {
-                if (item.Id == id)
+                if (item.Id == id&&item.Type is not null)
                 {
-                    if(item.Type is not null)
-                    {
-                        type = item.Type;
-                    }
-                    
+                    type = item.Type;
+
                 }
 
             }

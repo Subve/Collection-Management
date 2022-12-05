@@ -24,10 +24,6 @@ namespace Collection_Management
                 { 
                     Console.WriteLine(menu.Description);
                 }
-                else
-                { 
-                    continue; 
-                }
             }
         }
         public void CloseTheApp( ref char keyToStop)
