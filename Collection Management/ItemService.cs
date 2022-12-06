@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace Collection_Management
 {
-    public class ItemManager
+    public class ItemService
     {
         List<Item> itemList = new();
-        public void AddToList(int id,string name, string type)
+        public int AddToList(int id,string name, string type)
         {
             //Dodaj waruenk sprawdzajacy czy nie istnieje o takim id
 
             Item item= new Item() { Id=id,Name=name,Type=type};
             itemList.Add(item);
+            return item.Id;
         }
         public bool CheckIfIdNotExist(int id)
         {

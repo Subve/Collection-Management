@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Collection_Management
 {
-    public class Menu : IMenu
+    internal interface IMenu
     {
-        public int Id { get; set; }
-        
-        public string? Description { get; set; }
+        int Id { get; set; }
 
-        public int State { get; set; }
+        string? Description { get; set; }
+
+        int State { get; set; }
     }
 }

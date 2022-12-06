@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Collection_Management
 {
-    public class Item
+    public class Item: IItem
     {
         
         public int Id { get; set; }

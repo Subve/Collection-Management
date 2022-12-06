@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Collection_Management
 {
-    public class MenuManager
+    public class MenuService
     {
         List<Menu> menuList = new();
-        public MenuManager() { }
-        public void AddNewAction(int id,string description, int state)
+        public MenuService() { }
+        public int AddNewAction(int id,string description, int state)
         {
             Menu menuAction=new Menu() {Id=id,Description=description, State=state};
             menuList.Add(menuAction);
+            return menuAction.Id;
         }
         public void ShowMenuActionByState(int state) 
         {

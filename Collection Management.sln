@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collection Management", "Collection Management\Collection Management.csproj", "{27A1E2CB-D73E-4D9D-A4C0-7D8F6AE18923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Collection Management", "Collection Management\Collection Management.csproj", "{27A1E2CB-D73E-4D9D-A4C0-7D8F6AE18923}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionManagement.App", "CollectionManagement.App\CollectionManagement.App.csproj", "{30FC5668-2729-46D3-93A3-76ED1BB5DA6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionManagement.Domain", "CollectionManagement.Domain\CollectionManagement.Domain.csproj", "{4EB74F42-720A-494D-B26F-6C71C43A54AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{27A1E2CB-D73E-4D9D-A4C0-7D8F6AE18923}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27A1E2CB-D73E-4D9D-A4C0-7D8F6AE18923}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27A1E2CB-D73E-4D9D-A4C0-7D8F6AE18923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30FC5668-2729-46D3-93A3-76ED1BB5DA6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30FC5668-2729-46D3-93A3-76ED1BB5DA6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30FC5668-2729-46D3-93A3-76ED1BB5DA6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30FC5668-2729-46D3-93A3-76ED1BB5DA6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EB74F42-720A-494D-B26F-6C71C43A54AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EB74F42-720A-494D-B26F-6C71C43A54AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EB74F42-720A-494D-B26F-6C71C43A54AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EB74F42-720A-494D-B26F-6C71C43A54AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

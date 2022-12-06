@@ -8,4 +8,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CollectionManagement.App\CollectionManagement.App.csproj" />
+    <ProjectReference Include="..\CollectionManagement.Domain\CollectionManagement.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
