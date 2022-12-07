@@ -26,7 +26,20 @@ namespace CollectionManagement.App.Common
         {
             return Items;
         }
-
+        public int GetLastId()
+        {
+            int id;
+            if(Items.Any()) 
+            { 
+                id=Items.OrderBy(x => x.Id).LastOrDefault().Id;
+            }
+            else
+            {
+                id = 0;
+            }
+            return id;
+            
+        }
         public void RemoveItem(T item)
         {
             Items.Remove(item);
@@ -34,7 +47,12 @@ namespace CollectionManagement.App.Common
 
         public int UpdateItem(T item)
         {
-            throw new NotImplementedException();
+            var entity= Items.FirstOrDefault(x=>x.Id==item.Id);
+            if(entity is not null)
+            {
+                entity = item;
+            }
+            return item.Id;
         }
     }
 }

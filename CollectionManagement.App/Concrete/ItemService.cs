@@ -1,56 +1,69 @@
-﻿using System;
+﻿using CollectionManagement.App.Common;
+using CollectionManagement.Domain.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Collection_Management
+namespace CollectionManagement.App.Concrete
 {
-    public class ItemService
+    public class ItemService:BaseService<Item>
     {
-        List<Item> itemList = new();
-        public int AddToList(int id,string name, string type)
-        {
-            //Dodaj waruenk sprawdzajacy czy nie istnieje o takim id
-
-            Item item= new Item() { Id=id,Name=name,Type=type};
-            itemList.Add(item);
-            return item.Id;
-        }
         public bool CheckIfIdNotExist(int id)
         {
-            var idDoesNotExist = itemList.Find(x => x.Id.Equals(id));
+            var idDoesNotExist = Items.Find(x => x.Id.Equals(id));
             if (idDoesNotExist is null)
             {
                 return true;
             }
             return false;
         }
+        public bool UpdateItemFromList(Item item)
+        {
+            var toDeleteItem= Items.Find(x => x.Id.Equals(item.Id));
+            if(toDeleteItem is not null)
+            {
+                RemoveFromList(item.Id);
+                AddItem(new Item(item.Id, item.Name, item.Type));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+            
+
+
+
+        }
         public void RemoveFromList(int id) 
         {
             //Usuwanie z listy jesli istnieje
-            var itemToRemove=itemList.Find(x => x.Id.Equals(id));
+            var itemToRemove= Items.Find(x => x.Id.Equals(id));
             if (itemToRemove != null)
             {
-                itemList.Remove(itemToRemove);
+                Items.Remove(itemToRemove);
             }
         }
         public List<Item> GetList(string type)
         {
             List<Item> result = new();
-            foreach(Item item in itemList)
+            foreach(Item item in Items)
             {
-                if (item.Type==type||type=="All")
+                if (item.Type == type||type=="All")
                 {
                     result.Add(item);
                 }
+                
             }
             return result;
         }
         public List<Item> ShowOneItem(int id) 
         {   
             List<Item> result = new List<Item>();
-            foreach(Item item in itemList)
+            foreach(Item item in Items)
             {
                 if (item.Id==id)
                 {
@@ -59,10 +72,22 @@ namespace Collection_Management
             }
             return result;
         }
+        public Item FindItemById(int id)
+        {
+            Item result = new();
+            foreach (Item item in Items)
+            {
+                if (item.Id == id)
+                {
+                    result = item;
+                }
+            }
+            return result;
+        }
         public string OutDatedName(int id)
         {
             string name="NOT FOUND";
-            foreach (Item item in itemList)
+            foreach (Item item in Items)
             {
                 if (item.Id == id&& item.Name is not null)
                 {
@@ -75,7 +100,7 @@ namespace Collection_Management
         public string OutDatedType(int id)
         {
             string type = "NOT FOUND";
-            foreach (Item item in itemList)
+            foreach (Item item in Items)
             {
                 if (item.Id == id&&item.Type is not null)
                 {
