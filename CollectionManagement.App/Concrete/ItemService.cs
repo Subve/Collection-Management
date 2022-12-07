@@ -23,6 +23,14 @@ namespace CollectionManagement.App.Concrete
                 RemoveItem(itemToRemove);
             }
         }
+        public int UpdateItemByGivenItem(Item item)
+        {
+            
+            var entity = Items.SingleOrDefault(x => x.Id == item.Id);
+            RemoveFromList(entity.Id);
+            AddItemToList(item.Id, item.Name, item.Type);
+            return item.Id;
+        }
         public List<Item> GetList(string type)
         {
             List<Item> result = new();

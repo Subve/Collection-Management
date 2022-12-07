@@ -21,7 +21,7 @@ namespace CollectionManagement.App.Managers
         public void GetItemToUpdate( Item item)
         {
 
-            _itemService.UpdateItem(item);
+            _itemService.UpdateItemByGivenItem(item);
             _menuService.ShowMenuActionById(18);
         }
         public void GetItemToRemoveView()

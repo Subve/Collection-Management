@@ -45,8 +45,8 @@ namespace CollectionManagement.App.Common
         }
         public int UpdateItem(T item)
         {
-            var entity= Items.FirstOrDefault(x=>x.Id==item.Id);
-            if(entity is not null)
+            var entity = Items.SingleOrDefault(x => x.Id == item.Id);
+            if (entity is not null)
             {
                 entity = item;
             }
