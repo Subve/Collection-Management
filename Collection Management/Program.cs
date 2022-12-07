@@ -33,7 +33,7 @@ namespace Collection_Management
 
 
 
-                _itemManager.DisplayMenuByState(0);
+                _itemManager.ShowUserTheBeginPanel();
                 int chosenOperation;
                 string? operation = Console.ReadLine();
                 Int32.TryParse(operation, out chosenOperation);
@@ -48,32 +48,32 @@ namespace Collection_Management
                 {
                     case 1:
                         {
-                            _itemManager.AddView();
+                            _itemManager.GetItemToAdd();
                             
                             break;
                         }
                     case 2:
                         {
                             //Update
-                            _itemManager.UpdateView();
+                            _itemManager.GetItemToUpdate();
                             break;
                         }
                     case 3:
                         {
                             //Delete
-                            _itemManager.RemoveItemFromList();
+                            _itemManager.GetItemToRemove();
                             break;
                         }
                     case 4:
                         {
                             //Show one item by id
-                            _itemManager.ShowOneItem();
+                            _itemManager.ShowUserItemById();
                             break;
                         }   
                     case 5:
                         {
                             //Show all from category
-                            _itemManager.ShowAllFromCategory();
+                            _itemManager.ShowUserAllFromCategory();
                             break;
                         }
 

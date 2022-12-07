@@ -29,7 +29,14 @@ namespace CollectionManagement.App.Concrete
             }
             return result;
         }
-        
+        public void ShowMenuToUserByState(int state)
+        {
+            var menuList = ShowMenuActionByState(state);
+            foreach (var menu in menuList)
+            {
+                Console.WriteLine(menu.Name);
+            }
+        }
         public string ShowMenuActionById(int id) 
         {
             string result="Error";

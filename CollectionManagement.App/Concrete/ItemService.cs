@@ -32,11 +32,11 @@ namespace CollectionManagement.App.Concrete
             {
                 return false;
             }
-            
-            
-
-
-
+        }
+        public void AddItemToList(int id, string name, string type)
+        {
+            Item item = new Item(id, name, type);
+            AddItem(item);
         }
         public void RemoveFromList(int id) 
         {
@@ -56,7 +56,6 @@ namespace CollectionManagement.App.Concrete
                 {
                     result.Add(item);
                 }
-                
             }
             return result;
         }
@@ -93,7 +92,6 @@ namespace CollectionManagement.App.Concrete
                 {
                     name = item.Name;
                 }
-                
             }
             return name;
         }
@@ -105,9 +103,7 @@ namespace CollectionManagement.App.Concrete
                 if (item.Id == id&&item.Type is not null)
                 {
                     type = item.Type;
-
                 }
-
             }
             return type;
         }
