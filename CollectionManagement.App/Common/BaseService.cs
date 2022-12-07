@@ -28,23 +28,21 @@ namespace CollectionManagement.App.Common
         }
         public int GetLastId()
         {
-            int id;
             if(Items.Any()) 
-            { 
-                id=Items.OrderBy(x => x.Id).LastOrDefault().Id;
+            {   
+                var id=Items.OrderBy(x => x.Id).LastOrDefault().Id;
+                return id;
             }
             else
             {
-                id = 0;
+                var id = 0;
+                return id;
             }
-            return id;
-            
         }
         public void RemoveItem(T item)
         {
             Items.Remove(item);
         }
-
         public int UpdateItem(T item)
         {
             var entity= Items.FirstOrDefault(x=>x.Id==item.Id);

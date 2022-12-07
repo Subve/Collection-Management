@@ -48,20 +48,20 @@ namespace Collection_Management
                 {
                     case 1:
                         {
-                            _itemManager.GetItemToAdd();
+                            _itemManager.GetItemToAddView();
                             
                             break;
                         }
                     case 2:
                         {
                             //Update
-                            _itemManager.GetItemToUpdate();
+                            _itemManager.GetItemToUpdateView();
                             break;
                         }
                     case 3:
                         {
                             //Delete
-                            _itemManager.GetItemToRemove();
+                            _itemManager.GetItemToRemoveView();
                             break;
                         }
                     case 4:
@@ -81,7 +81,7 @@ namespace Collection_Management
 
                 
                 //Quit the app if 'q'
-                menuService.CloseTheApp(ref stopKey);
+                menuService.CloseOrContinueTheApp(ref stopKey);
                 
 
                 

@@ -8,22 +8,21 @@ using System.Threading.Tasks;
 
 namespace CollectionManagement.App.Concrete
 {
-    public class MenuService:BaseService<Menu>
+    public class MenuService : BaseService<Menu>
     {
-        public MenuService() 
+        public MenuService()
         {
             InitializeMenu();
         }
-        
-        public List<Menu> ShowMenuActionByState(int state) 
+
+        public List<Menu> PassMenuListByState(int state)
         {
-            List<Menu> result= new List<Menu>();
+            List<Menu> result = new List<Menu>();
             //Show actions of state
             foreach (Menu menu in Items)
             {
-                
-                if(menu.State==state)
-                { 
+                if (menu.State == state)
+                {
                     result.Add(menu);
                 }
             }
@@ -31,25 +30,24 @@ namespace CollectionManagement.App.Concrete
         }
         public void ShowMenuToUserByState(int state)
         {
-            var menuList = ShowMenuActionByState(state);
+            var menuList = PassMenuListByState(state);
             foreach (var menu in menuList)
             {
                 Console.WriteLine(menu.Name);
             }
         }
-        public string ShowMenuActionById(int id) 
+        public void ShowMenuActionById(int id)
         {
-            string result="Error";
-            foreach(Menu menu in Items)
+            foreach (Menu menu in Items)
             {
-                if(menu.Id==id) 
+                if (menu.Id == id)
                 {
-                    result = menu.Name;
+                    var result = menu.Name;
+                    Console.WriteLine(result);
                 }
             }
-            return result;
         }
-        public void CloseTheApp( ref char keyToStop)
+        public void CloseOrContinueTheApp(ref char keyToStop)
         {
             Console.WriteLine();
             Console.WriteLine("Press 'q' to quit");
@@ -85,5 +83,39 @@ namespace CollectionManagement.App.Concrete
             AddItem(new Menu(18, "The item have been updated", 9));
             AddItem(new Menu(19, "Failed to update the item", 10));
         }
+        public string ValidateTheCategory()
+        {
+            bool validCategory = false;
+            string? categoryInput = "9";
+            while (!validCategory)
+            {
+                ShowMenuToUserByState(1);
+
+                categoryInput = Console.ReadLine();
+
+                if (categoryInput is "1" or "2" or "3")
+                {
+                    validCategory = true;
+                }
+                else
+                {
+                    Console.WriteLine("Select proper category");
+                }
+            }
+            return categoryInput;
+        }
+        public string ValidateTheName()
+        {
+            ShowMenuToUserByState(3);
+            string? itemName = Console.ReadLine();
+            while (itemName is "")
+            {
+                Console.WriteLine("You didnt give a proper name! Try again.");
+                itemName = Console.ReadLine();
+            }
+            return itemName;
+        }
+            
     }
 }
+

@@ -18,15 +18,13 @@ namespace CollectionManagement.App.Managers
             _itemService = itemService;
             _menuService = menuService;
         }
-        public string GetItemToUpdate(int id,string name,string type)
+        public void GetItemToUpdate( Item item)
         {
-            _itemService.RemoveFromList(id);
-            int newId = _itemService.GetLastId() + 1;
-            Item item = new Item(newId, name,type);
-            _itemService.AddItem(item);
-            return _menuService.ShowMenuActionById(18);
+
+            _itemService.UpdateItem(item);
+            _menuService.ShowMenuActionById(18);
         }
-        public void GetItemToRemove()
+        public void GetItemToRemoveView()
         {
             _menuService.ShowMenuToUserByState(5);
             int itemId = Convert.ToInt32(Console.ReadLine());
@@ -37,15 +35,10 @@ namespace CollectionManagement.App.Managers
         public void ShowUserItemById()
         {
             //Show item with id
-            
             _menuService.ShowMenuToUserByState(6);
             int itemId = Convert.ToInt32(Console.ReadLine());
-            List<Item> showedItem = new();
-            showedItem = _itemService.ShowOneItem(itemId);
-            foreach (var item in showedItem)
-            {
-                Console.WriteLine($"Item ID: {item.Id} Item Name: {item.Name} Item Type: {item.Type}");
-            }
+            var itemToShow = _itemService.ShowOneItem(itemId);
+            Console.WriteLine($"Item ID: {itemToShow.Id} Item Name: {itemToShow.Name} Item Type: {itemToShow.Type}");
         }
         public void ShowUserAllFromCategory()
         {
@@ -61,66 +54,28 @@ namespace CollectionManagement.App.Managers
                 Console.WriteLine($"Item ID: {item.Id} Item Name: {item.Name} Item Type: {item.Type}");
              }
         }
-        public void GetItemToAdd()
+        public void GetItemToAddView()
         {
-            bool validCategory = false;
-            string? categoryInput = "9";
-            while (!validCategory)
-            {
-                _menuService.ShowMenuToUserByState(1);
-
-                categoryInput = Console.ReadLine();
-
-                if (categoryInput is "1" or "2" or "3")
-                {
-                    validCategory = true;
-                }
-                else
-                {
-                    Console.WriteLine("Select proper category");
-                }
-            }
-            //menuService.ShowMenuActionByState(2);
-            int itemId = _itemService.GetLastId() + 1;
-
+            var categoryInput = _menuService.ValidateTheCategory();
             Enum.TryParse(categoryInput, out ItemType chosenCategory);
-            while (!_itemService.CheckIfIdNotExist(itemId))
-            {
-                Console.WriteLine($"ID {itemId} is taken. Please use an unused one.");
-                itemId = Convert.ToInt32(Console.ReadLine());
-            }
             string itemCategory = chosenCategory.ToString();
-            _menuService.ShowMenuToUserByState(3);
-            string? itemName = Console.ReadLine();
-            while (itemName is null)
-            {
-                Console.WriteLine("You didnt give a proper name! Try again.");
-                itemName = Console.ReadLine();
-            }
+            int itemId = _itemService.GetLastId() + 1;
+            var itemName = _menuService.ValidateTheName();
             _itemService.AddItemToList(itemId, itemName, itemCategory);
         }
-        public void GetItemToUpdate()
+        public void GetItemToUpdateView()
         {
             _menuService.ShowMenuToUserByState(4);
             int previousItemId = Convert.ToInt32(Console.ReadLine());
-            /* string tmpName= _itemManager.OutDatedName(previousItemId);
-             string tmp_type= _itemManager.OutDatedType(previousItemId);*/
             _menuService.ShowMenuToUserByState(1);
-
             string? categoryInput = Console.ReadLine();
-
             Enum.TryParse(categoryInput, out ItemType chosenCategory);
             string itemCategory = chosenCategory.ToString();
-
-            _menuService.ShowMenuToUserByState(3);
-            string? itemName = Console.ReadLine();
-            while (itemName is null)
-            {
-                Console.WriteLine("You didnt give a proper name! Try again.");
-                itemName = Console.ReadLine();
-            }
-            
-            Console.WriteLine(GetItemToUpdate(previousItemId, itemName, itemCategory));
+            var itemName=_menuService.ValidateTheName();
+            var previousItem=_itemService.FindItemById(previousItemId);
+            Item newItem = new Item(previousItemId, itemName, itemCategory);
+            GetItemToUpdate(newItem);
+            Console.WriteLine();
         }
         public void ShowUserTheBeginPanel()
         {
