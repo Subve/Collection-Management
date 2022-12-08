@@ -14,7 +14,7 @@ namespace CollectionManagement.App.Concrete
         {
             AddItem(new Item(id, name, type));
         }
-        public void RemoveFromList(int id) 
+        private void RemoveFromList(int id) 
         {
             //Usuwanie z listy jesli istnieje
             var itemToRemove= FindItemById(id);

@@ -15,7 +15,7 @@ namespace CollectionManagement.App.Concrete
             InitializeMenu();
         }
 
-        public List<Menu> PassMenuListByState(int state)
+        private List<Menu> PassMenuListByState(int state)
         {
             List<Menu> result = new List<Menu>();
             //Show actions of state
