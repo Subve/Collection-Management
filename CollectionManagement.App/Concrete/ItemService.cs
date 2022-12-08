@@ -10,11 +10,13 @@ namespace CollectionManagement.App.Concrete
 {
     public class ItemService:BaseService<Item>
     {
-        public void AddItemToList(int id, string name, string type)
+        public int AddItemToList(int id, string name, string type)
         {
-            AddItem(new Item(id, name, type));
+            Item newItem = new Item(id,name,type);
+            AddItem(newItem);
+            return newItem.Id;
         }
-        private void RemoveFromList(int id) 
+        private bool RemoveFromList(int id) 
         {
             //Usuwanie z listy jesli istnieje
             var itemToRemove= FindItemById(id);
@@ -22,14 +24,23 @@ namespace CollectionManagement.App.Concrete
             {
                 RemoveItem(itemToRemove);
             }
+            if(itemToRemove is null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
         public int UpdateItemByGivenItem(Item item)
         {
-            
             var entity = Items.SingleOrDefault(x => x.Id == item.Id);
             RemoveFromList(entity.Id);
-            AddItemToList(item.Id, item.Name, item.Type);
-            return item.Id;
+            Item updatedItem= new Item(entity.Id,item.Name,item.Type);
+            AddItemToList(updatedItem.Id, updatedItem.Name, updatedItem.Type);
+            return updatedItem.Id;
         }
         public List<Item> GetList(string type)
         {

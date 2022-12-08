@@ -81,7 +81,7 @@ namespace Collection_Management
 
                 
                 //Quit the app if 'q'
-                menuService.CloseOrContinueTheApp(ref stopKey);
+                stopKey= menuService.CloseOrContinueTheApp();
                 
 
                 

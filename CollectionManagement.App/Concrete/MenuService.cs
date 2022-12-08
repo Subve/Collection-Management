@@ -47,12 +47,13 @@ namespace CollectionManagement.App.Concrete
                 }
             }
         }
-        public void CloseOrContinueTheApp(ref char keyToStop)
+        public char CloseOrContinueTheApp()
         {
             Console.WriteLine();
             Console.WriteLine("Press 'q' to quit");
             Console.WriteLine("Press 'c' to continue");
-            keyToStop = char.Parse(Console.ReadLine());
+            var pressedKey = char.Parse(Console.ReadLine());
+            return pressedKey;
         }
         private void InitializeMenu()
         {

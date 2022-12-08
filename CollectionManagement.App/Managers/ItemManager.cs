@@ -18,27 +18,30 @@ namespace CollectionManagement.App.Managers
             _itemService = itemService;
             _menuService = menuService;
         }
-        public void GetItemToUpdate( Item item)
+        public int GetItemToUpdate( Item item)
         {
 
             _itemService.UpdateItemByGivenItem(item);
             _menuService.ShowMenuActionById(18);
+            return item.Id;
         }
-        public void GetItemToRemoveView()
+        public int GetItemToRemoveView()
         {
             _menuService.ShowMenuToUserByState(5);
             int itemId = Convert.ToInt32(Console.ReadLine());
             var foundItem = _itemService.FindItemById(itemId);
             _itemService.RemoveItem(foundItem);
             Console.WriteLine($"Deleted item with ID: {itemId}");
+            return itemId;
         }
-        public void ShowUserItemById()
+        public int ShowUserItemById()
         {
             //Show item with id
             _menuService.ShowMenuToUserByState(6);
             int itemId = Convert.ToInt32(Console.ReadLine());
             var itemToShow = _itemService.ShowOneItem(itemId);
             Console.WriteLine($"Item ID: {itemToShow.Id} Item Name: {itemToShow.Name} Item Type: {itemToShow.Type}");
+            return itemToShow.Id;
         }
         public void ShowUserAllFromCategory()
         {
@@ -54,7 +57,7 @@ namespace CollectionManagement.App.Managers
                 Console.WriteLine($"Item ID: {item.Id} Item Name: {item.Name} Item Type: {item.Type}");
              }
         }
-        public void GetItemToAddView()
+        public int GetItemToAddView()
         {
             var categoryInput = _menuService.ValidateTheCategory();
             Enum.TryParse(categoryInput, out ItemType chosenCategory);
@@ -62,8 +65,9 @@ namespace CollectionManagement.App.Managers
             int itemId = _itemService.GetLastId() + 1;
             var itemName = _menuService.ValidateTheName();
             _itemService.AddItemToList(itemId, itemName, itemCategory);
+            return itemId;
         }
-        public void GetItemToUpdateView()
+        public int GetItemToUpdateView()
         {
             _menuService.ShowMenuToUserByState(4);
             int previousItemId = Convert.ToInt32(Console.ReadLine());
@@ -76,6 +80,7 @@ namespace CollectionManagement.App.Managers
             Item newItem = new Item(previousItemId, itemName, itemCategory);
             GetItemToUpdate(newItem);
             Console.WriteLine();
+            return newItem.Id;
         }
         public void ShowUserTheBeginPanel()
         {
