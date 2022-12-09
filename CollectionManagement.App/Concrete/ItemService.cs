@@ -16,29 +16,16 @@ namespace CollectionManagement.App.Concrete
             AddItem(newItem);
             return newItem.Id;
         }
-        private bool RemoveFromList(int id) 
+        private void RemoveFromList(int id) 
         {
             //Usuwanie z listy jesli istnieje
             var itemToRemove= FindItemById(id);
-            if (itemToRemove != null)
-            {
-                RemoveItem(itemToRemove);
-            }
-            if(itemToRemove is null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            RemoveItem(itemToRemove);
         }
         public int UpdateItemByGivenItem(Item item)
         {
-            var entity = Items.SingleOrDefault(x => x.Id == item.Id);
-            RemoveFromList(entity.Id);
-            Item updatedItem= new Item(entity.Id,item.Name,item.Type);
+            RemoveFromList(item.Id);
+            Item updatedItem= new Item(item.Id,item.Name,item.Type);
             AddItemToList(updatedItem.Id, updatedItem.Name, updatedItem.Type);
             return updatedItem.Id;
         }
@@ -58,23 +45,6 @@ namespace CollectionManagement.App.Concrete
                     result.Add(item);
                 }
              }    
-            return result;
-        }
-        public Item ShowOneItem(int id) 
-        {   
-            var result=FindItemById(id);
-            return result;
-        }
-        public Item FindItemById(int id)
-        {
-            Item result = new();
-            foreach (Item item in Items)
-            {
-                if (item.Id == id)
-                {
-                    result = item;
-                }
-            }
             return result;
         }
     }

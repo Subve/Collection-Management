@@ -22,24 +22,18 @@ namespace Collection_Management
 
         
         static void Main(string[] args)
-        {   Console.WriteLine("Welcome to Your Collection Manager");
-            char stopKey = 'c';
-            
+        {
             MenuService menuService = new();
             ItemService itemService = new();
             ItemManager _itemManager = new(menuService,itemService);
+            Console.WriteLine("Welcome to Your Collection Manager");
+            char stopKey = 'c';
             while (stopKey!='q')
             {
-
-
-
-                _itemManager.ShowUserTheBeginPanel();
+                _itemManager.ShowMenuByState(0);
                 int chosenOperation;
                 string? operation = Console.ReadLine();
                 Int32.TryParse(operation, out chosenOperation);
-
-
-
                 Console.WriteLine($"You have choosen option number: {chosenOperation}");
                 
                 //Int32.TryParse(categoryInput, out choosenCategory);
@@ -48,46 +42,41 @@ namespace Collection_Management
                 {
                     case 1:
                         {
-                            _itemManager.GetItemToAddView();
+                            _itemManager.AddItemView();
                             
                             break;
                         }
                     case 2:
                         {
                             //Update
-                            _itemManager.GetItemToUpdateView();
+                            _itemManager.UpdateItemView();
                             break;
                         }
                     case 3:
                         {
                             //Delete
-                            _itemManager.GetItemToRemoveView();
+                            _itemManager.RemoveItemView();
                             break;
                         }
                     case 4:
                         {
                             //Show one item by id
-                            _itemManager.ShowUserItemById();
+                            _itemManager.ShowItemByIdView();
                             break;
                         }   
                     case 5:
                         {
                             //Show all from category
-                            _itemManager.ShowUserAllFromCategory();
+                            _itemManager.ShowItemsByCategoryView();
                             break;
                         }
-
                 }
-
-                
                 //Quit the app if 'q'
-                stopKey= menuService.CloseOrContinueTheApp();
-                
-
-                
-
+                Console.WriteLine();
+                Console.WriteLine("Press 'q' to quit");
+                Console.WriteLine("Press 'c' to continue");
+                stopKey = char.Parse(Console.ReadLine());
             }
         }
-        
     }
 }

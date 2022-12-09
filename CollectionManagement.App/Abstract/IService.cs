@@ -11,6 +11,7 @@ namespace CollectionManagement.App.Abstract
         List<T> Items { get; set; }
         List<T> GetAllItems();
         int AddItem(T item);
+        T FindItemById(int id);
         void RemoveItem(T item);
 
     }

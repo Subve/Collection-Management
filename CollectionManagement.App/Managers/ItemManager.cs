@@ -18,36 +18,41 @@ namespace CollectionManagement.App.Managers
             _itemService = itemService;
             _menuService = menuService;
         }
-        public int GetItemToUpdate( Item item)
+        public void UpdateItemView( Item item)
         {
 
             _itemService.UpdateItemByGivenItem(item);
-            _menuService.ShowMenuActionById(18);
-            return item.Id;
+            _menuService.FindItemById(18);
+            
         }
-        public int GetItemToRemoveView()
+        public int RemoveItemView()
         {
-            _menuService.ShowMenuToUserByState(5);
-            int itemId = Convert.ToInt32(Console.ReadLine());
+            
+            int itemId=ValidateExistingItemId(5);
             var foundItem = _itemService.FindItemById(itemId);
             _itemService.RemoveItem(foundItem);
             Console.WriteLine($"Deleted item with ID: {itemId}");
             return itemId;
         }
-        public int ShowUserItemById()
+        public void ShowItemByIdView()
         {
             //Show item with id
-            _menuService.ShowMenuToUserByState(6);
-            int itemId = Convert.ToInt32(Console.ReadLine());
-            var itemToShow = _itemService.ShowOneItem(itemId);
+
+            Item itemToShow;
+            do
+            {
+                ShowMenuByState(6);
+                int itemId = Convert.ToInt32(Console.ReadLine());
+                itemToShow = _itemService.FindItemById(itemId);
+            } 
+            while (itemToShow is null);
             Console.WriteLine($"Item ID: {itemToShow.Id} Item Name: {itemToShow.Name} Item Type: {itemToShow.Type}");
-            return itemToShow.Id;
         }
-        public void ShowUserAllFromCategory()
+        public void ShowItemsByCategoryView()
         {
-            _menuService.ShowMenuToUserByState(1);
-            _menuService.ShowMenuToUserByState(7);
-            _menuService.ShowMenuToUserByState(8);
+            ShowMenuByState(1);
+            ShowMenuByState(7);
+            ShowMenuByState(8);
              string? categoryInput = Console.ReadLine();
              Enum.TryParse(categoryInput, out ItemType chosenCategory);
             string categoryToDisplay = chosenCategory.ToString();
@@ -57,34 +62,73 @@ namespace CollectionManagement.App.Managers
                 Console.WriteLine($"Item ID: {item.Id} Item Name: {item.Name} Item Type: {item.Type}");
              }
         }
-        public int GetItemToAddView()
+        public int AddItemView()
         {
-            var categoryInput = _menuService.ValidateTheCategory();
+            string? categoryInput = "9";
+            do
+            {
+                ShowMenuByState(1);
+                categoryInput = Console.ReadLine();
+            }
+            while (!(categoryInput is "1" or "2" or "3"));
             Enum.TryParse(categoryInput, out ItemType chosenCategory);
             string itemCategory = chosenCategory.ToString();
             int itemId = _itemService.GetLastId() + 1;
-            var itemName = _menuService.ValidateTheName();
+            string itemName=ValidateNewItemName();
             _itemService.AddItemToList(itemId, itemName, itemCategory);
             return itemId;
         }
-        public int GetItemToUpdateView()
+        public void ShowMenuByState(int state)
         {
-            _menuService.ShowMenuToUserByState(4);
-            int previousItemId = Convert.ToInt32(Console.ReadLine());
-            _menuService.ShowMenuToUserByState(1);
-            string? categoryInput = Console.ReadLine();
-            Enum.TryParse(categoryInput, out ItemType chosenCategory);
-            string itemCategory = chosenCategory.ToString();
-            var itemName=_menuService.ValidateTheName();
+            var menuList = _menuService.PassMenuListByState(state);
+            foreach (var menu in menuList)
+            {
+                Console.WriteLine(menu.Name);
+            }
+        }
+        public int UpdateItemView()
+        {
+            int previousItemId=ValidateExistingItemId(4);
+            var itemCategory=ValidateNewItemCategory();
+            var itemName=ValidateNewItemName();
             var previousItem=_itemService.FindItemById(previousItemId);
             Item newItem = new Item(previousItemId, itemName, itemCategory);
-            GetItemToUpdate(newItem);
-            Console.WriteLine();
+            _itemService.UpdateItemByGivenItem(newItem);
             return newItem.Id;
         }
-        public void ShowUserTheBeginPanel()
+        public string ValidateNewItemName()
         {
-            _menuService.ShowMenuToUserByState(0);
+            ShowMenuByState(3);
+            string? itemName = Console.ReadLine();
+            while (itemName is "")
+            {
+                Console.WriteLine("You didnt give a proper name! Try again.");
+                itemName = Console.ReadLine();
+            }
+            return itemName;
+        }
+        public string ValidateNewItemCategory()
+        {
+            string? categoryInput;
+            do
+            {
+                ShowMenuByState(1);
+                categoryInput = Console.ReadLine();
+            }
+            while (!(categoryInput is "1" or "2" or "3"));
+            Enum.TryParse(categoryInput, out ItemType chosenCategory);
+            string itemCategory = chosenCategory.ToString();
+            return itemCategory;
+        }
+        public int ValidateExistingItemId(int state)
+        {
+            int itemId;
+            do
+            {
+                ShowMenuByState(state);
+                itemId = Convert.ToInt32(Console.ReadLine());
+            } while ((_itemService.FindItemById(itemId) is null));
+            return itemId;
         }
 
     }

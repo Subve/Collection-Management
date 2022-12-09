@@ -1,5 +1,6 @@
 ﻿using CollectionManagement.App.Abstract;
 using CollectionManagement.Domain.Common;
+using CollectionManagement.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,10 +40,19 @@ namespace CollectionManagement.App.Common
                 return id;
             }
         }
+        public T FindItemById(int id)
+        {
+            T entity = Items.FirstOrDefault(x => x.Id == id);
+            return entity;
+        }
         public void RemoveItem(T item)
         {
-            Items.Remove(item);
+            if (item is not null)
+            {
+                Items.Remove(item);
+            }
         }
+
         /*
         public int UpdateItem(T item)
         {
