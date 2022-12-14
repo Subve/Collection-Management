@@ -24,7 +24,7 @@ namespace CollectionManagement.Tests.ItemServiceTests
             Assert.Equal(previousItem.Id, newItem.Id);
             itemService.Items.Should().NotContain(previousItem);
             //itemService.Items.Should().Contain(newItem);
-            Assert.Contains(newItem,itemService.Items);
+            Assert.Contains<Item>(newItem,itemService.Items);
         }
     }
 }
