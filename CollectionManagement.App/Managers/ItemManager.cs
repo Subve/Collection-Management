@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace CollectionManagement.App.Managers
 {
+    
     public class ItemManager
-    {
+    {   public const int SELECT_CATEGORY_MENU = 1;
+        public const int SELECT_NEW_ITEM_NAME = 3;
+        public const int SELECT_ADD_ID_MENU = 4;
+        public const int SELECT_DELETE_ID_MENU = 5;
+        public const int SELECT_SHOW_ID_MENU = 6;
+        public const int ALL_TYPE_OPTION = 7;
+        public const int PRE_SHOW_MESSAGE = 8;
+        public const int AFTER_UPDATE_MESSAGE = 18;
         private readonly MenuService _menuService;
         private readonly ItemService _itemService;
         public ItemManager(MenuService menuService,ItemService itemService)
@@ -22,13 +30,13 @@ namespace CollectionManagement.App.Managers
         {
 
             _itemService.UpdateItemByGivenItem(item);
-            _menuService.FindItemById(18);
+            _menuService.FindItemById(AFTER_UPDATE_MESSAGE);
             
         }
         public int RemoveItemView()
         {
             
-            int itemId=ValidateExistingItemId(5);
+            int itemId=ValidateExistingItemId(SELECT_DELETE_ID_MENU);
             var foundItem = _itemService.FindItemById(itemId);
             _itemService.RemoveItem(foundItem);
             Console.WriteLine($"Deleted item with ID: {itemId}");
@@ -41,7 +49,7 @@ namespace CollectionManagement.App.Managers
             Item itemToShow;
             do
             {
-                ShowMenuByState(6);
+                ShowMenuByState(SELECT_SHOW_ID_MENU);
                 int itemId = Convert.ToInt32(Console.ReadLine());
                 itemToShow = _itemService.FindItemById(itemId);
             } 
@@ -50,9 +58,9 @@ namespace CollectionManagement.App.Managers
         }
         public void ShowItemsByCategoryView()
         {
-            ShowMenuByState(1);
-            ShowMenuByState(7);
-            ShowMenuByState(8);
+            ShowMenuByState(SELECT_CATEGORY_MENU);
+            ShowMenuByState(ALL_TYPE_OPTION);
+            ShowMenuByState(PRE_SHOW_MESSAGE);
              string? categoryInput = Console.ReadLine();
              Enum.TryParse(categoryInput, out ItemType chosenCategory);
             string categoryToDisplay = chosenCategory.ToString();
@@ -67,7 +75,7 @@ namespace CollectionManagement.App.Managers
             string? categoryInput = "9";
             do
             {
-                ShowMenuByState(1);
+                ShowMenuByState(SELECT_CATEGORY_MENU);
                 categoryInput = Console.ReadLine();
             }
             while (!(categoryInput is "1" or "2" or "3"));
@@ -88,7 +96,7 @@ namespace CollectionManagement.App.Managers
         }
         public int UpdateItemView()
         {
-            int previousItemId=ValidateExistingItemId(4);
+            int previousItemId=ValidateExistingItemId(SELECT_ADD_ID_MENU);
             var itemCategory=ValidateNewItemCategory();
             var itemName=ValidateNewItemName();
             var previousItem=_itemService.FindItemById(previousItemId);
@@ -98,7 +106,7 @@ namespace CollectionManagement.App.Managers
         }
         public string ValidateNewItemName()
         {
-            ShowMenuByState(3);
+            ShowMenuByState(SELECT_NEW_ITEM_NAME);
             string? itemName = Console.ReadLine();
             while (itemName is "")
             {
@@ -112,7 +120,7 @@ namespace CollectionManagement.App.Managers
             string? categoryInput;
             do
             {
-                ShowMenuByState(1);
+                ShowMenuByState(SELECT_CATEGORY_MENU);
                 categoryInput = Console.ReadLine();
             }
             while (!(categoryInput is "1" or "2" or "3"));

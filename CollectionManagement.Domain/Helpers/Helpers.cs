@@ -16,4 +16,5 @@ namespace CollectionManagement.Domain.Helpers
         Teddy,
         All
     }
+
 }
