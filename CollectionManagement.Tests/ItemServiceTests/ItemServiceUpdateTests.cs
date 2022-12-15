@@ -15,16 +15,20 @@ namespace CollectionManagement.Tests.ItemServiceTests
         public void UpdateItemByGivenItem_Expect_UpdatedItemInCollection()
         {
             ItemService itemService= new ItemService();
-            Item previousItem = new(1,"Apple","Coin");
+            Item previousItem = new Item(1,"Apple","Coin");
             itemService.AddItem(previousItem);
-            Item newItem = new(1, "Ferdek", "Teddy");
+            Item newItem = new Item(1, "Ferdek", "Teddy");
+            
             itemService.UpdateItemByGivenItem(newItem);
 
+            
             itemService.Items.Should().NotBeEmpty();
             Assert.Equal(previousItem.Id, newItem.Id);
             itemService.Items.Should().NotContain(previousItem);
             //itemService.Items.Should().Contain(newItem);
-            Assert.Contains<Item>(newItem,itemService.Items);
+            Assert.Contains(itemService.Items, i => i.Id == newItem.Id);
+            Assert.Contains(itemService.Items, i => i.Name == newItem.Name);
+            Assert.Contains(itemService.Items, i => i.Type == newItem.Type);
         }
     }
 }

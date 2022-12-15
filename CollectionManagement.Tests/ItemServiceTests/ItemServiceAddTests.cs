@@ -3,7 +3,7 @@ using CollectionManagement.Domain.Entity;
 
 namespace CollectionManagement.Tests.ItemServiceTests
 {
-    public class ItemServiceTests
+    public class ItemServiceAddTests
     {
         public void AddItemToList_Expect_AttendItemToList()
         {
@@ -25,7 +25,7 @@ namespace CollectionManagement.Tests.ItemServiceTests
             //Act
             _itemService.AddItem(newItem);
             //Assert
-            Assert.Contains(newItem, _itemService.Items);
+            Assert.Contains<Item>(newItem, _itemService.Items);
         }
         [Fact]
         public void FindItemById_Finds_The_Right_Element()
