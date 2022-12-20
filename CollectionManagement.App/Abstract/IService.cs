@@ -13,6 +13,7 @@ namespace CollectionManagement.App.Abstract
         int AddItem(T item);
         T FindItemById(int id);
         void RemoveItem(T item);
+        
 
     }
 }

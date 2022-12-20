@@ -11,6 +11,7 @@ namespace CollectionManagement.App.Common
 {
     public class BaseService<T> : IService<T> where T: BaseEntity
     {
+        public readonly string PATH_WAY = @"C:\tmp\CollectionManager\data.txt";
         public List<T> Items { get; set ; }
 
         public BaseService() 
@@ -25,11 +26,13 @@ namespace CollectionManagement.App.Common
 
         public List<T> GetAllItems()
         {
+            List<T> items = new List<T>();
+            items= Items.OrderBy(x=>x.Id).ToList();
             return Items;
         }
         public int GetLastId()
         {
-            if(Items.Any()) 
+            if(Items!=null&&Items.Count>0) 
             {   
                 var id=Items.OrderBy(x => x.Id).LastOrDefault().Id;
                 return id;
@@ -52,6 +55,8 @@ namespace CollectionManagement.App.Common
                 Items.Remove(item);
             }
         }
+
+        
 
         /*
         public int UpdateItem(T item)

@@ -11,7 +11,8 @@ namespace CollectionManagement.App.Managers
 {
     
     public class ItemManager
-    {   public const int SELECT_CATEGORY_MENU = 1;
+    {
+        public const int SELECT_CATEGORY_MENU = 1;
         public const int SELECT_NEW_ITEM_NAME = 3;
         public const int SELECT_ADD_ID_MENU = 4;
         public const int SELECT_DELETE_ID_MENU = 5;
@@ -21,10 +22,12 @@ namespace CollectionManagement.App.Managers
         public const int AFTER_UPDATE_MESSAGE = 18;
         private readonly MenuService _menuService;
         private readonly ItemService _itemService;
+        
         public ItemManager(MenuService menuService,ItemService itemService)
         {
             _itemService = itemService;
             _menuService = menuService;
+            
         }
         public void UpdateItemView( Item item)
         {
@@ -65,10 +68,18 @@ namespace CollectionManagement.App.Managers
              Enum.TryParse(categoryInput, out ItemType chosenCategory);
             string categoryToDisplay = chosenCategory.ToString();
              List<Item> listToDisplay = _itemService.GetList(categoryToDisplay);
-             foreach (var item in listToDisplay)
+            if(listToDisplay!=null) 
+            {
+                foreach (var item in listToDisplay)
              {
                 Console.WriteLine($"Item ID: {item.Id} Item Name: {item.Name} Item Type: {item.Type}");
-             }
+             } 
+            }
+            else
+            {
+                Console.WriteLine("The Collection is empty");
+            }
+             
         }
         public int AddItemView()
         {
@@ -137,6 +148,20 @@ namespace CollectionManagement.App.Managers
                 itemId = Convert.ToInt32(Console.ReadLine());
             } while ((_itemService.FindItemById(itemId) is null));
             return itemId;
+        }
+        public void GetDecisionAboutSaving()
+        {
+            string userInput;
+            do
+            {
+                ShowMenuByState(11);
+                userInput = Console.ReadLine().ToLower();
+            } while (userInput != "y" && userInput != "n");
+            if(userInput=="y")
+            {
+                _itemService.SaveListInJason();
+                Console.WriteLine($"The List has been saved in {_itemService.PATH_WAY}");
+            }
         }
 
     }

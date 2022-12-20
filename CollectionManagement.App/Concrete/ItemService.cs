@@ -1,5 +1,6 @@
 ﻿using CollectionManagement.App.Common;
 using CollectionManagement.Domain.Entity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,13 @@ namespace CollectionManagement.App.Concrete
 {
     public class ItemService:BaseService<Item>
     {
+        private readonly FileService _fileService;
+        public ItemService()
+        {
+            FileService fileService= new FileService();
+            _fileService = fileService;
+            GetListFromJson();
+        }
         public int AddItemToList(int id, string name, string type)
         {
             Item newItem = new Item(id,name,type);
@@ -32,7 +40,7 @@ namespace CollectionManagement.App.Concrete
         public List<Item> GetList(string type)
         {
             List<Item> result = new();
-
+            
             if (type == "All")
              {
                 return GetAllItems();
@@ -40,12 +48,15 @@ namespace CollectionManagement.App.Concrete
 
             foreach (Item item in Items)
              {
-                if(item.Type == type)
-                {
-                    result.Add(item);
-                }
+                result=Items.Where(x=>x.Type== type).OrderBy(x=>x.Id).ToList();
              }    
             return result;
         }
+        public void GetListFromJson()=> Items = _fileService.LoadList();
+        public void SaveListInJason()=>_fileService.SaveList(Items);
+        
+            
+        
+
     }
 }

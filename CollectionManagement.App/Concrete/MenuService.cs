@@ -56,6 +56,9 @@ namespace CollectionManagement.App.Concrete
             AddItem(new Menu(17, "You are about to see all items from the category", 8));
             AddItem(new Menu(18, "The item have been updated", 9));
             AddItem(new Menu(19, "Failed to update the item", 10));
+            AddItem(new Menu(20, "Do you want to save the changes? Y/N",11));
+            AddItem(new Menu(21, "Changes have been saved", 12));
+            AddItem(new Menu(22, "Changes have not been saved", 12));
         }   
     }
 }

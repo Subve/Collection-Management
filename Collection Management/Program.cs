@@ -18,7 +18,6 @@ namespace Collection_Management
         //A2 Dodanie do listy
         //B2 pobranie danych do temp, usuniecie i dodanie zmienionego
         //C2 Usuniecie z listy
-        public const string PATH_WAY = @"C:\Users\milos\Documents\Collection_Manager\ImportFile.xlsx";
         public const int MENU_START = 0;
         
         static void Main(string[] args)
@@ -76,6 +75,10 @@ namespace Collection_Management
                 Console.WriteLine("Press 'q' to quit");
                 Console.WriteLine("Press 'c' to continue");
                 stopKey = char.Parse(Console.ReadLine());
+                if (stopKey == 'q')
+                { 
+                    _itemManager.GetDecisionAboutSaving();
+                }
             }
         }
     }
